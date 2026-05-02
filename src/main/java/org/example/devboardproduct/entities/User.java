@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -36,7 +37,7 @@ public class User {
     private String email;
 
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "default Developer")
+    @ColumnDefault("Developer")
     private userRole Role;
 
     @CreatedDate
