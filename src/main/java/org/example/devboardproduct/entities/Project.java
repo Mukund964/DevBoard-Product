@@ -6,8 +6,11 @@ import lombok.Builder;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.scheduling.config.Task;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -26,14 +29,22 @@ public class Project {
 
     private String Description;
 
-    @OneToOne
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "owner_id")
     private User owner;
 
     @ManyToMany
-    private User members;
+    @JoinTable(
+            name = "project_members",
+            joinColumns = @JoinColumn(name = "project_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<User> members = new ArrayList<>();
 
-    @ManyToOne
-    private Tasks tasks;
+
+
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Task> tasks = new ArrayList<>();
 
     @CreatedDate
     @Column(nullable = false)

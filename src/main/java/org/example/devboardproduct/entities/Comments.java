@@ -1,8 +1,6 @@
 package org.example.devboardproduct.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -22,8 +20,13 @@ public class Comments {
     @Column(nullable = false)
     private String body;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "task_id")
+    private Tasks task;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "author_id")
     private User author;
-    private Tasks tasks;
 
     @CreatedDate
     @Column(nullable = false)
