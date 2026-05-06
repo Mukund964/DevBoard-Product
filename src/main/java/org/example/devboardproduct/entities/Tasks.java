@@ -31,12 +31,10 @@ public class Tasks {
     private String Description;
 
     @Enumerated(EnumType.STRING)
-    @ColumnDefault("TODO")
-    private TaskStatus TaskStatus;
+    private TaskStatus Status = TaskStatus.TODO;
 
     @Enumerated(EnumType.STRING)
-    @ColumnDefault("HIGH")
-    private TaskPriority TaskPriority;
+    private TaskPriority Priority = TaskPriority.HIGH;
 
 
     @ManyToOne
@@ -59,7 +57,6 @@ public class Tasks {
     @UpdateTimestamp
     @Column(nullable = false)
     private LocalDateTime UpdatedAt;
-
 
 
 }

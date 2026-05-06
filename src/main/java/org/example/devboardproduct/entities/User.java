@@ -40,8 +40,7 @@ public class User {
     private String email;
 
     @Enumerated(EnumType.STRING)
-    @ColumnDefault("Developer")
-    private userRole Role;
+    private userRole Role = userRole.Developer; // by default to Developer
 
     @OneToMany(mappedBy = "owner", cascade = {CascadeType.PERSIST})
     private List<Project> ownedProjects = new ArrayList<>();

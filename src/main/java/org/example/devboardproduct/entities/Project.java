@@ -42,9 +42,8 @@ public class Project {
     private List<User> members = new ArrayList<>();
 
 
-
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Task> tasks = new ArrayList<>();
+    private List<Tasks> tasks = new ArrayList<>();
 
     @CreatedDate
     @Column(nullable = false)
