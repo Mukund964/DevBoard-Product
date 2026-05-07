@@ -1,12 +1,10 @@
 package org.example.devboardproduct.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.scheduling.config.Task;
+
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -17,6 +15,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Getter
+@Setter
 @EntityListeners(AuditingEntityListener.class)
 public class Project {
     @Id
