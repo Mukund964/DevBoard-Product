@@ -1,6 +1,8 @@
 package org.example.devboardproduct.controllers;
 
+import jakarta.validation.Valid;
 import org.apache.logging.log4j.message.Message;
+import org.example.devboardproduct.dtos.createUserInput;
 import org.example.devboardproduct.entities.User;
 import org.example.devboardproduct.entities.userRole;
 import org.example.devboardproduct.services.UserService;
@@ -19,7 +21,9 @@ public class UserController {
     UserService userService;
 
     @MutationMapping
-    public User CreateUser(@Argument String name, @Argument String email, @Argument userRole role){
+    public User createUser(@Argument @Valid createUserInput input){
+        String name = input.getName();
+        String email = input.getEmail();
 
         //for validation in graphql no need to return responseEntity just throw exception
         if (name == null || name.isBlank()) {
@@ -30,7 +34,7 @@ public class UserController {
         }
 
         // 2. Defaulting logic: If role is null, default to DEVELOPER
-        userRole assignedRole = (role != null) ? role : userRole.Developer; //
+        userRole assignedRole = (input.getRole() != null) ? input.getRole() : userRole.DEVELOPER; //
 
         // 3. Return the object directly; Spring handles the HTTP 200 OK
         return userService.createUser(name, email, assignedRole);

@@ -18,6 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @EntityListeners(AuditingEntityListener.class)
+@Table(name = "Users")
 public class User {
 
     @Id
@@ -39,7 +40,7 @@ public class User {
     private String email;
 
     @Enumerated(EnumType.STRING)
-    private userRole Role = userRole.Developer; // by default to Developer
+    private userRole Role = userRole.DEVELOPER; // by default to Developer
 
     @OneToMany(mappedBy = "owner", cascade = {CascadeType.PERSIST})
     private List<Project> ownedProjects = new ArrayList<>();

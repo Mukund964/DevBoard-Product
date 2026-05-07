@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("Email already exists in the system");
         }
 
-        role = (role != null) ? role : userRole.Developer;
+        role = (role != null) ? role : userRole.DEVELOPER;
 
         User newUser = User.builder()
                         .name(name)

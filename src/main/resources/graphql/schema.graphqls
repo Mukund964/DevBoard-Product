@@ -1,0 +1,74 @@
+enum TaskStatus {
+    TODO
+    IN_PROGRESS
+    DONE
+}
+
+enum TaskPriority {
+    LOW
+    MEDIUM
+    HIGH
+}
+
+enum UserRole {
+    DEVELOPER
+    LEAD
+    ADMIN
+}
+
+type User {
+    id: ID!
+    name: String!
+    email: String!
+    role: UserRole!
+    projects: [Project!]!
+    assignedTasks: [Task!]! # Renamed to Task for consistency
+    createdAt: String!
+}
+
+type Project {
+    id: ID!
+    name: String!
+    description: String!
+    owner: User!
+    members: [User!]!
+    tasks(status: TaskStatus, priority: TaskPriority): [Task!]!
+    createdAt: String!
+}
+
+type Comment { # Singular is better practice
+    id: ID!
+    body: String!
+    task: Task!
+    author: User!
+    createdAt: String!
+}
+
+type Task { # Changed from Tasks to Task
+    id: ID!
+    title: String!
+    description: String!
+    status: TaskStatus! # Fixed spelling from "Staus"
+    priority: TaskPriority!
+    assignee: User
+    project: Project
+    comments: [Comment!]!
+    createdAt: String!
+    updatedAt: String!
+}
+
+# Added a Query type so the engine can start
+type Query {
+    getUser(id: ID!): User
+    listUsers: [User!]!
+}
+
+type Mutation {
+    createUser(input: CreateNewUserInput!): User! # Use camelCase for method names
+}
+
+input CreateNewUserInput {
+    name: String!
+    email: String!
+    role: UserRole
+}
