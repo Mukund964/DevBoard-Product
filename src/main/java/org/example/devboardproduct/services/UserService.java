@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface UserService {
     User createUser(String name, String email, userRole role);
+    User getUser(int id);
 }

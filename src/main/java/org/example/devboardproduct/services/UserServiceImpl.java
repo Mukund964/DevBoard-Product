@@ -5,6 +5,7 @@ import org.example.devboardproduct.entities.userRole;
 import org.example.devboardproduct.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 
 
 @Service
@@ -31,4 +32,13 @@ public class UserServiceImpl implements UserService {
 
         return UserRepo.save(newUser);
     }
+
+    @Override
+    public User getUser(int id) {
+        Optional<User> userWithGivenId = UserRepo.findById(id);
+        if(userWithGivenId.isEmpty()) throw new RuntimeException("User with given Id not found");
+        else return userWithGivenId.get();
+    }
+
+
 }
