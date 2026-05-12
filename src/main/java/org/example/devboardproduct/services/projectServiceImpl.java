@@ -1,12 +1,14 @@
 package org.example.devboardproduct.services;
 
+import jakarta.transaction.Transactional;
 import org.example.devboardproduct.entities.Project;
 import org.example.devboardproduct.entities.User;
 import org.example.devboardproduct.repository.ProjectRepository;
 import org.example.devboardproduct.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.UUID;
+
 
 @Service
 public class projectServiceImpl implements projectService{
@@ -29,12 +31,45 @@ public class projectServiceImpl implements projectService{
 
             Project newProject = Project.builder()
                     .Name(name)
-                    .Description("This is a dummy Description by default")
+                   // .Description("This is a dummy Description by default")
                     .owner(owner)
                     .build();
 
 
             return projectRepo.save(newProject);
         }
+
+    @Override
+    public Project addMemberToProject(UUID projectId, int memberId) {
+        Project projectWithGivenId = projectRepo.findById(projectId)
+                .orElseThrow(()->  new RuntimeException("Project not found"));
+
+        User memberToAdd = userRepo.findById(memberId)
+                .orElseThrow(()-> new RuntimeException("Member doesn't exists"));
+
+        if(projectWithGivenId.getMembers().contains(memberToAdd)) return projectWithGivenId;
+
+        projectWithGivenId.getMembers().add(memberToAdd);
+        memberToAdd.getMemberProjects().add(projectWithGivenId);
+
+        return projectRepo.save(projectWithGivenId);
     }
+
+    @Override
+    @Transactional
+    public Project removeMemberToProject(UUID projectId, int memberId) {
+        Project projectWithGivenId = projectRepo.findById(projectId)
+                .orElseThrow(()->  new RuntimeException("Project not found"));
+
+        User memberToRemove = userRepo.findById(memberId)
+                .orElseThrow(()-> new RuntimeException("Member doesn't exists"));
+
+        if(!projectWithGivenId.getMembers().contains(memberToRemove)) return projectWithGivenId;
+
+        projectWithGivenId.getMembers().remove(memberToRemove);
+        memberToRemove.getMemberProjects().remove(projectWithGivenId);
+
+        return projectRepo.save(projectWithGivenId);
+    }
+}
 

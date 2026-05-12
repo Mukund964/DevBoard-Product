@@ -66,6 +66,8 @@ type Query {
 type Mutation {
     createUser(input: CreateNewUserInput!): User! # Use camelCase for method names
     createProject(name:String!, OwnerId : ID!) : Project!
+    addMemberToProject(projectId : ID!, memberId : ID!) : Project!
+    removeMemberToProject(projectId : ID!, memberId : ID!) : Project!
 }
 
 input CreateNewUserInput {

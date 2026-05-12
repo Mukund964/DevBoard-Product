@@ -20,4 +20,13 @@ public class projectController {
         return projectService.createProject(name,OwnerId);
     }
 
+    @MutationMapping
+    Project addMemberToProject(@Argument UUID projectId, @Argument int memberId){
+        return projectService.addMemberToProject(projectId,memberId);
+    }
+
+    @MutationMapping
+    Project removeMemberToProject(@Argument UUID projectId, @Argument int memberId){
+        return projectService.removeMemberToProject(projectId,memberId);
+    }
 }
