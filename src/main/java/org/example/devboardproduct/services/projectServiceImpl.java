@@ -6,6 +6,8 @@ import org.example.devboardproduct.repository.ProjectRepository;
 import org.example.devboardproduct.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class projectServiceImpl implements projectService{
 
@@ -19,11 +21,20 @@ public class projectServiceImpl implements projectService{
     }
 
     @Override
-    public Project createProject(String name, int ownerId) {
-        if(userRepo.existsById(ownerId)) throw new RuntimeException("User Not Found");
-        User userFound = userRepo.findById(ownerId);
+        public Project createProject(String name, int ownerId) {
 
-        Project newProject = Project.builder().Name(name).owner(userFound).
-                            build();
+            User owner = userRepo.findById(ownerId)
+                    .orElseThrow(() -> new RuntimeException("User with ID " + ownerId + " not found"));
+
+
+            Project newProject = Project.builder()
+                    .Name(name)
+                    .Description("This is a dummy Description by default")
+                    .owner(owner)
+                    .build();
+
+
+            return projectRepo.save(newProject);
+        }
     }
-}
+
