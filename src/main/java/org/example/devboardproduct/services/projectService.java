@@ -8,4 +8,5 @@ public interface projectService {
     Project createProject(String name, int ownerId);
     Project addMemberToProject(UUID projectId, int memberId);
     Project removeMemberToProject(UUID projectId, int memberId);
+    Project getProject(UUID projectId);
 }

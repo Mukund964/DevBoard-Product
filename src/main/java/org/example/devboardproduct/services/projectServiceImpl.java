@@ -71,5 +71,11 @@ public class projectServiceImpl implements projectService{
 
         return projectRepo.save(projectWithGivenId);
     }
+
+    @Override
+    public Project getProject(UUID projectId) {
+        return projectRepo.findById(projectId)
+                .orElseThrow(() -> new RuntimeException("Project with id not found"));
+    }
 }
 

@@ -61,6 +61,7 @@ type Task { # Changed from Tasks to Task
 type Query {
     getUser(id: ID!): User
     listUsers: [User!]!
+    getProject(projectId: ID!): Project!
 }
 
 type Mutation {
@@ -68,6 +69,7 @@ type Mutation {
     createProject(name:String!, OwnerId : ID!) : Project!
     addMemberToProject(projectId : ID!, memberId : ID!) : Project!
     removeMemberToProject(projectId : ID!, memberId : ID!) : Project!
+
 }
 
 input CreateNewUserInput {
