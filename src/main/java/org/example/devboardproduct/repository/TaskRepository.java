@@ -14,9 +14,9 @@ import java.util.UUID;
 
 @Repository
 public interface TaskRepository extends JpaRepository<Tasks, Integer> {
-    @Query("SELECT t FROM Task t WHERE t.project.id = :projectId " +
-            "AND (:status IS NULL OR t.status = :status) " +
-            "AND (:priority IS NULL OR t.priority = :priority)")
+    @Query("SELECT t FROM Tasks t WHERE t.project.Id = :projectId " +
+            "AND (:status IS NULL OR t.Status = :status) " +
+            "AND (:priority IS NULL OR t.Priority = :priority)")
     List<Tasks> findTasksWithFilters(
             @Param("projectId") UUID projectId,
             @Param("status") TaskStatus status,
