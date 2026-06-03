@@ -70,7 +70,7 @@ type Mutation {
     addMemberToProject(projectId : ID!, memberId : ID!) : Project!
     removeMemberToProject(projectId : ID!, memberId : ID!) : Project!
     CreateTask(input : CreateNewTask!) : Task!
-
+    UpdateTask(input : UpdateTaskInput!) : Task!
 }
 
 input CreateNewUserInput {
@@ -84,4 +84,12 @@ input CreateNewTask {
     priority : TaskPriority
     ProjectId : ID!
     AssigneeId : ID!
+}
+input UpdateTaskInput {
+    id: ID!
+    title: String
+    description: String
+    status: TaskStatus
+    priority: TaskPriority
+    assigneeId: ID
 }
