@@ -4,12 +4,14 @@ import jakarta.transaction.Transactional;
 import org.example.devboardproduct.dtos.TaskCreateInput;
 import org.example.devboardproduct.dtos.TaskFilters;
 import org.example.devboardproduct.dtos.UpdateTaskInput;
-import org.example.devboardproduct.dtos.getTaskFilters;
 import org.example.devboardproduct.entities.*;
+import org.example.devboardproduct.filters.TaskSpecification;
 import org.example.devboardproduct.repository.ProjectRepository;
 import org.example.devboardproduct.repository.TaskRepository;
 import org.example.devboardproduct.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -92,6 +94,15 @@ public class taskServiceImpl implements taskService{
 
     @Override
     public List<Tasks> getTasksByFilters(TaskFilters filters) {
-        return null;
+        Specification<Tasks> spec =
+                TaskSpecification.withFilters(filters);
+
+        PageRequest page = PageRequest.of(
+                filters.getOffset() / filters.getLimit(),
+                filters.getLimit()
+        );
+        return taskRepository
+                .findAll(spec, page)
+                .getContent();
     }
 }

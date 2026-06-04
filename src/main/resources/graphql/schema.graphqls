@@ -62,6 +62,7 @@ type Query {
     getUser(id: ID!): User
     listUsers: [User!]!
     getProject(projectId: ID!): Project!
+    getTaskWithFilters(filters: TaskFilters): [Task!]!
 }
 
 type Mutation {
@@ -71,6 +72,14 @@ type Mutation {
     removeMemberToProject(projectId : ID!, memberId : ID!) : Project!
     CreateTask(input : CreateNewTask!) : Task!
     UpdateTask(input : UpdateTaskInput!) : Task!
+}
+input TaskFilters {
+    projectId: ID
+    status: TaskStatus
+    priority: TaskPriority
+    assigneeId: ID
+    limit: Int = 20    # Default value mapped from your DTO
+    offset: Int = 0    # Default value mapped from your DTO
 }
 
 input CreateNewUserInput {

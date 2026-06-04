@@ -31,7 +31,7 @@ public class projectServiceImpl implements projectService{
 
             Project newProject = Project.builder()
                     .Name(name)
-                   // .Description("This is a dummy Description by default")
+                    .Description("This is a dummy Description by default")
                     .owner(owner)
                     .build();
 

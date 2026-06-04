@@ -3,7 +3,6 @@ package org.example.devboardproduct.services;
 import org.example.devboardproduct.dtos.TaskCreateInput;
 import org.example.devboardproduct.dtos.TaskFilters;
 import org.example.devboardproduct.dtos.UpdateTaskInput;
-import org.example.devboardproduct.dtos.getTaskFilters;
 import org.example.devboardproduct.entities.TaskPriority;
 import org.example.devboardproduct.entities.TaskStatus;
 import org.example.devboardproduct.entities.Tasks;

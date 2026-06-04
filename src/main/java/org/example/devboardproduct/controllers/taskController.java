@@ -3,7 +3,6 @@ package org.example.devboardproduct.controllers;
 import org.example.devboardproduct.dtos.TaskCreateInput;
 import org.example.devboardproduct.dtos.TaskFilters;
 import org.example.devboardproduct.dtos.UpdateTaskInput;
-import org.example.devboardproduct.dtos.getTaskFilters;
 import org.example.devboardproduct.entities.TaskPriority;
 import org.example.devboardproduct.entities.TaskStatus;
 import org.example.devboardproduct.entities.Tasks;
@@ -30,10 +29,12 @@ public class taskController {
     }
 
     @MutationMapping
-    public Tasks updateTask(@Argument UpdateTaskInput input) {
+    public Tasks UpdateTask(@Argument UpdateTaskInput input) {
         return taskService.updateTask(input);
     }
 
     @QueryMapping
-    public List<Tasks> getTaskWithFilters(@Argument TaskFilters filters){return taskService.getTasksByFilters(filters);};
+    public List<Tasks> getTaskWithFilters(@Argument TaskFilters filters){
+        if(filters == null) filters = new TaskFilters();
+        return taskService.getTasksByFilters(filters);};
 }
